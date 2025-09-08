@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const tablica = [4,2,3,5,9,16,1,7];
+        for (let i = 0; i<tablica.leght-1; i++){
+          for (let j = 0; j<tablica.leght-1; j++){
+            if(tablica[i]>tablica[j+1]){
+                let temp = tablica[j];
+                tablica[j] = tablica[j+1];
+                tablica[j+1] = temp;
+            }
+        }  
+        }
+        console.log(tablica);
+    </script>
+</body>
+</html>

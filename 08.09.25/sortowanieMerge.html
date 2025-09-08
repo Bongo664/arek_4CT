@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function mergesort(tablica){
+            if(tablica.length<= 1){
+                return tablica;
+            }
+            const mid = Math.floor(tablica.length /2);
+            const left = tablica.slice(0,mid);
+            const right = tablica.slice(mid);
+
+            return merge(mergesort(left),mergesort(right));
+        }
+        function merge(left,right){
+            let result = [];
+            let i = 0;
+            let j = 0;
+
+            while (condition){
+                //za chuja nie wiem czy dokończe
+            }
+        }
+        const tablica = [4,2,3,5,9,16,1,7];
+        console.log("posortowana tablica: ", mergesort(tablica))
+    </script>
+</body>
+</html>
