@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    /*
+    Faktory method to metoda/wzorzec wytwórczy. Służy do tworzenia obiektów bez bezpośredniego użycia "new". Zamiast tego wywołuje sie metodę fabryki, które decyduje jaki obiekt utworzyć.
+    Pozwala to na łatwe rozszerzanie kodu bez modyfikacji logiki klienta.
+    Zastosowanie: systemy pluginów, api zwracjącego różne typy obiektów w zależności od parametrów
+    */
+
+    //produkty
+    class Car{
+        constructor(){
+            this.type = "Car"
+        }
+    }
+    class Bike{
+        constructor(){
+            this.type = "Bike"
+        }
+    }
+    class Truck{
+        constructor(){
+            this.type = "Truck"
+        }
+    }
+
+    class VehicleFactory{
+        createVehicle(vehicleType){
+            switch(vehicleType){
+                case "Car":
+                    return new Car();
+                break;
+                case "Bike":
+                    return new Bike();
+                break;
+                case "Truck":
+                    return new Truck();
+                break;
+                default:
+                    throw new Error("Nieznany Typ Pojazdu...");
+                break;
+            }
+        }
+    }
+    //implementacje
+    const fabryka = new VehicleFactory();
+    const car = fabryka.createVehicle("Car");
+    const bike = fabryka.createVehicle("Bike");
+    const truck = fabryka.createVehicle("Truck");
+
+    console.log(car.type);
+    console.log(bike.type);
+    console.log(truck.type);
+   </script>
+</body>
+</html>

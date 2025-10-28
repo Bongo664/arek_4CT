@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //System powiadomień
+        class Powiadomienia{
+            constructor(wiadomosc){
+                this.wiadomosc = wiadomosc;
+            }
+            send(){
+                console.log(`Wysyłam wiadomość: ${this.wiadomosc}`);
+            }
+        }
+
+        //produkty dla faktory
+        class EmailPowiadomienia extends Powiadomienia{
+            send(){
+                console.log(`Email: ${this.wiadomosc}`);
+            }
+        }
+        class SMSPowiadomienia extends Powiadomienia{
+            send(){
+                console.log(`SMS: ${this.wiadomosc}`);
+            }
+        }
+        class PushPowiadomienia extends Powiadomienia{
+            send(){
+                console.log(`Push: ${this.wiadomosc}`);
+            }
+        }
+        class ChatPowiadomienia extends Powiadomienia{
+            send(){
+                console.log(`Chat: ${this.wiadomosc}`);
+            }
+        }
+        //Faktory
+        class PowiadomieniaFaktory{
+            static createPowiadomienia(type,wiadomosc){
+                switch (type) {
+                    case "email":
+                        return new EmailPowiadomienia(wiadomosc);
+                    break;
+                    case "sms":
+                        return new SMSPowiadomienia(wiadomosc);
+                    break;
+                    case "push":
+                        return new PushPowiadomienia(wiadomosc);
+                    break;
+                    case "chat":
+                        return new ChatPowiadomienia(wiadomosc);
+                    break;
+                    default:
+                        throw new Error("nieznany typ powiadomienia");
+                    break;
+                }
+            }
+        }
+        //testowanie fabryki i implementacja fabryki
+        const email = PowiadomieniaFaktory.createPowiadomienia("email","Masz nową wiadomość email...")
+        const sms = PowiadomieniaFaktory.createPowiadomienia("sms","Masz nową wiadomość sms...")
+        const push = PowiadomieniaFaktory.createPowiadomienia("push","Masz nową wiadomość push...")
+        const chat = PowiadomieniaFaktory.createPowiadomienia("chat","Masz nową wiadomość chat...")
+
+        email.send(); sms.send(); push.send(); chat.send();
+    </script>
+</body>
+</html>

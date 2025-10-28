@@ -1,0 +1,6 @@
+Napisz aplikacje na konsole o nazwie trójkąt Paskala.
+Aplikacja zawiera:
+-Generowanie trójkąta Paskala na podstawie parametru n (ilość wierszy)
+-Wyznaczenie wartość elementów trójkąta paskala stosując dwumian Niutona
+-Wyznacz wartość wyrażenia ze wzoru skróconego mnożenia, dwóch parametrów a i b na podstawie trójkąta Paskala, wiedząc o wartość a i b, n
+-Wyznacz z trójkąta Paskala uwzględniając ciąg Fibonacciego wartości dla danego stopnia ciągu Fibonacciego

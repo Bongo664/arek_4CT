@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class szkola{
+            opis(){
+                console.log("to jest szkola")
+            }
+        }
+        class klasa{
+            opis(){
+                console.log("to jest klasa")
+            }
+        }
+        class Nauczyciel{
+            opis(){
+                console.log("to jest nauczyciel")
+            }
+        }
+        class Uczen{
+            opis(){
+                console.log("to jest uczen")
+            }
+        }
+        class FasadaSzkoly{
+            constructor({szkola,klasa,uczen,nauczyciel}){
+                this.szkola = szkola;
+                this.klasa = klasa;
+                this.uczen = uczen;
+                this.nauczyciel = nauczyciel;
+            }
+            prezentacja(){
+                this.szkola.opis();
+                this.klasa.opis();
+                this.uczen.opis();
+                this.nauczyciel.opis();
+            }
+        }
+        const mojafasadaszkola = new FasadaSzkoly({
+            szkola: new szkola(),
+            klasa: new klasa(),
+            uczen: new Uczen(),
+            nauczyciel: new Nauczyciel()
+        });
+        mojafasadaszkola.prezentacja();
+    </script>
+    
+</body>
+</html>

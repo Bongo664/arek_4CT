@@ -1,0 +1,15 @@
+Namiot 5 10
+Spiwor 3 8
+Kurtka 2 7
+Buty 2 6
+Latarka 1 5
+Jedzenie 4 9
+Woda 6 10
+Apteczka 2 8
+Mapa 1 3
+Kompas 1 4
+Noz 1 5
+Powerbank 1 6
+Bluza 2 5
+Ponczo 1 4
+Baterie 1 3

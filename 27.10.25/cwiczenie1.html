@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        //obserwator
+        //wzorzec obserwator jest zwiazany z relacja obiektow "jeden do wielu"
+
+        class Subject{
+            constructor(){
+                this.observers = [];
+            }
+            subscribe(observer){
+                this.observers.push(observer);
+            }
+            
+            unsubscribe(observer){
+                this.observers = this.observers.filter(obs => obs!==observer);
+            }
+            notify(data){
+                this.observers.forEach(observer =>observer.update(data))
+            }
+        }
+
+        class Observer{
+            constructor(name){
+                this.name = name
+            }
+            update(data){
+                console.log(`${this.name} otrzymal powiadomienie: ${data}`)
+            }
+        }
+
+        const subject = new Subject()
+        const obs1 = new Observer("nikiel1")
+        const obs2 = new Observer("nikiel2")
+        const obs3 = new Observer("nikiel3")
+        const obs4 = new Observer("nikiel4")
+        const obs5 = new Observer("nikiel5")
+        
+        subject.subscribe(obs1);
+        subject.subscribe(obs2);
+        subject.subscribe(obs3);
+        subject.subscribe(obs4);
+        subject.subscribe(obs5);
+
+        subject.notify("Dzisiaj zwirek z muchomorkiem sie pobil")
+
+        subject.unsubscribe(obs3)
+
+        
+        subject.notify("Dzisiaj zwirek z muchomorkiem sie pogodzil")
+</script>
+
+</body>
+</html>

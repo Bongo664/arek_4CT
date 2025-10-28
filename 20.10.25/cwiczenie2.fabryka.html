@@ -1,0 +1,81 @@
+<!DOCTYPE html> 
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rowery</title>
+</head>
+<body>
+    <h2>Rowery:</h2>
+
+    <select id="rowery">
+        <option value="">--- Wybierz ---</option>
+        <option value="OXFELD TR-4">OXFELD TR-4</option>
+        <option value="GIANT Roam 2 Disc">GIANT Roam 2 Disc</option>
+        <option value="R-RAYMON UrbanRay 2.0 Gent">R-RAYMON UrbanRay 2.0 Gent</option>
+        <option value="GIANT Roam 4 Disc">GIANT Roam 4 Disc</option>
+        <option value="KROSS Horizon 2.0">KROSS Horizon 2.0</option>
+    </select>
+
+    <button id="OK">OK</button>
+    <div id="wynik"></div>
+
+    <script>
+        function Rower(imie, rama, cena, zdjecie){
+            this.nazwa = imie;
+            this.rama = rama;
+            this.cena = cena;
+            this.zdjecie = zdjecie;
+
+            this.info = function() {
+                return `
+                    <p><strong>Nazwa:</strong> ${this.nazwa}</p>
+                    <p><strong>Rama:</strong> ${this.rama}"</p>
+                    <p><strong>Cena:</strong> ${this.cena} zł</p>
+                    <img src="${this.zdjecie}" alt="zdjecie roweru">
+                `;
+            };
+        }
+
+        function RowerFactory() {
+            this.stworzRower = function (typ) {
+                switch (typ) {
+                    case 'OXFELD TR-4': 
+                        return new Rower("OXFELD TR-4", 20, 999, "https://www.centrumrowerowe.pl/photo/product/oxfeld-tr-4-2-227111-f-sk7-w780-h554_1.webp");
+                    break;
+                    case 'GIANT Roam 2 Disc': 
+                        return new Rower("GIANT Roam 2 Disc", 21.5, 2999, "https://www.centrumrowerowe.pl/photo/product/giant-roam-2-disc-2-251863-f-sk7-w780-h554_1.webp");
+                    break;
+                    case 'R-RAYMON UrbanRay 2.0 Gent': 
+                        return new Rower("R-RAYMON UrbanRay 2.0 Gent", 23.5, 2199, "https://www.centrumrowerowe.pl/photo/product/r-raymon-urbanray-2-0-gent-2-175823-f-sk7-w780-h554_1.webp");
+                    break;
+                    case 'GIANT Roam 4 Disc': 
+                        return new Rower("GIANT Roam 4 Disc", 19.5, 2199, "https://www.centrumrowerowe.pl/photo/product/giant-roam-4-disc-2-229981-f-sk7-w780-h554_1.webp");
+                    break;
+                    case 'KROSS Horizon 2.0': 
+                        return new Rower("KROSS Horizon 2.0", 19, 1599, "https://www.centrumrowerowe.pl/photo/product/kross-horizon-2-0-2-254965-f-sk7-w780-h554_1.webp");
+                    break;
+                    default: 
+                        return null;
+                    break;
+                }
+            };
+        }
+
+        const select = document.getElementById('rowery');
+        const wynikDiv = document.getElementById('wynik');
+        const OK = document.getElementById('OK');
+        const factory = new RowerFactory();
+
+        OK.addEventListener('click', () => {
+            const wybrany = select.value;
+            if (!wybrany) {
+                wynikDiv.innerHTML = "<p>Wybierz rower z listy.</p>";
+                return;
+            }
+            const rower = factory.stworzRower(wybrany);
+            wynikDiv.innerHTML = rower ? rower.info() : "<p>Nie znaleziono roweru.</p>";
+        });
+    </script>
+</body>
+</html>

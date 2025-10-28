@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maszyna do Kaucji</title>
+</head>
+<body>
+    <h1>Maszyna do Zwrotu Butelek</h1>
+    
+    <label>Plastik (0.25 zł):</label>
+    <input type="number" id="plastik" value="0"><br><br>
+
+    <label>Papier/Karton (0.15 zł):</label>
+    <input type="number" id="papier" value="0"><br><br>
+
+    <label>Szkło (0.50 zł):</label>
+    <input type="number" id="szklo" value="0"><br><br>
+
+    <label>Metal (0.30 zł):</label>
+    <input type="number" id="metal" value="0"><br><br>
+
+    <button onclick="obliczCene()">Oblicz Cenę</button>
+
+    <p id="wynik"></p>
+
+    <script>
+        class Plastik {
+            constructor() {
+                this.cena = 0.25;
+            }
+            przetworz(ilosc) {
+                return ilosc * this.cena;
+            }
+        }
+
+        class PapierKarton {
+            constructor() {
+                this.cena = 0.15;
+            }
+            przetworz(ilosc) {
+                return ilosc * this.cena;
+            }
+        }
+
+        class Szklo {
+            constructor() {
+                this.cena = 0.50;
+            }
+            przetworz(ilosc) {
+                return ilosc * this.cena;
+            }
+        }
+
+        class Metal {
+            constructor() {
+                this.cena = 0.30;
+            }
+            przetworz(ilosc) {
+                return ilosc * this.cena;
+            }
+        }
+
+        class MaszynaDoKaucjiFasada {
+            constructor() {
+                this.plastik = new Plastik();
+                this.papierKarton = new PapierKarton();
+                this.szklo = new Szklo();
+                this.metal = new Metal();
+            }
+
+            zbierzButelki(plastik, papier, szklo, metal) {
+                let suma = 0;
+                suma += this.plastik.przetworz(plastik);
+                suma += this.papierKarton.przetworz(papier);
+                suma += this.szklo.przetworz(szklo);
+                suma += this.metal.przetworz(metal);
+
+                return `Do zwrotu: ${suma.toFixed(2)} zł`;
+            }
+        }
+
+        const maszyna = new MaszynaDoKaucjiFasada();
+
+        function obliczCene() {
+            const plastik = parseInt(document.getElementById('plastik').value) || 0;
+            const papier = parseInt(document.getElementById('papier').value) || 0;
+            const szklo = parseInt(document.getElementById('szklo').value) || 0;
+            const metal = parseInt(document.getElementById('metal').value) || 0;
+
+            const wynik = maszyna.zbierzButelki(plastik, papier, szklo, metal);
+            document.getElementById('wynik').textContent = wynik;
+        }
+    </script>
+</body>
+</html>

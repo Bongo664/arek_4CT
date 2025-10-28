@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uczniowie</title>
+</head>
+<body>
+    <h2>Uczniowie:</h2>
+
+    <select id="uczniowie">
+        <option value="">--- Wybierz ---</option>
+        <option value="Jakub Nikiel">Jakub Nikiel</option>
+        <option value="Jakub Moliński">Jakub Moliński</option>
+        <option value="Stanisław Skowroński">Stanisław Skowroński</option>
+        <option value="Maksymilian Szkorupa">Maksymilian Szkorupa</option>
+        <option value="Jakub Kiecok">Jakub Kiecok</option>
+    </select>
+
+    <button id="OK">OK</button>
+    <div id="wynik"></div>
+
+    <script>
+        function Uczen(imie, wzrost, waga, zainteresowanie){
+            this.imie = imie;
+            this.wzrost = wzrost;
+            this.waga = waga;
+            this.zainteresowanie = zainteresowanie;
+
+            this.info = function() {
+                return `
+                    <p><strong>Imię:</strong> ${this.imie}</p>
+                    <p><strong>Wzrost:</strong> ${this.wzrost} cm</p>
+                    <p><strong>Waga:</strong> ${this.waga} kg</p>
+                    <p><strong>Zainteresowanie:</strong> ${this.zainteresowanie}</p>
+                `;
+            };
+        }
+
+        function UczenFactory() {
+            this.stworzUcznia = function (typ) {
+                switch (typ) {
+                    case 'Jakub Nikiel': 
+                        return new Uczen("Jakub Nikiel", 180, 89, "LoL");
+                    break;
+                    case 'Jakub Moliński': 
+                        return new Uczen("Jakub Moliński", 180, 60, "Buty");
+                    break;
+                    case 'Stanisław Skowroński': 
+                        return new Uczen("Stanisław Skowroński", 185, 85, "Koszykówka");
+                    break;
+                    case 'Maksymilian Szkorupa': 
+                        return new Uczen("Maksymilian Szkorupa", 170, 60, "TFT");
+                    break;
+                    case 'Jakub Kiecok': 
+                        return new Uczen("Jakub Kiecok", 190, 80, "Bębenki");
+                    break;
+                    default: 
+                        return null;
+                    break;
+                }
+            };
+        }
+
+        const select = document.getElementById('uczniowie');
+        const wynikDiv = document.getElementById('wynik');
+        const OK = document.getElementById('OK');
+        const factory = new UczenFactory();
+
+        OK.addEventListener('click', () => {
+            const wybrany = select.value;
+            if (!wybrany) {
+                wynikDiv.innerHTML = "<p>Wybierz ucznia z listy.</p>";
+                return;
+            }
+            const uczen = factory.stworzUcznia(wybrany);
+            wynikDiv.innerHTML = uczen ? uczen.info() : "<p>Nie znaleziono ucznia.</p>";
+        });
+    </script>
+</body>
+</html>

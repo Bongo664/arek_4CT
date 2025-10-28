@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automat do Kawy</title>
+</head>
+<body>
+    <h1>Automat do Kawy</h1>
+    
+    <label>Rodzaj kawy:</label>
+    <select id="rodzaj">
+        <option value="latte">Latte</option>
+        <option value="espresso">Espresso</option>
+        <option value="cappuccino">Cappuccino</option>
+    </select><br><br>
+
+    <label>Mleko: <span id="mleko-ilosc">0</span> ml</label>
+    <button onclick="dodajMleko()">+</button><br><br>
+
+    <label>Cukier: <span id="cukier-ilosc">0</span> łyżeczek</label>
+    <button onclick="dodajCukier()">+</button><br><br>
+
+    <label>Moc kawy (1-10):</label>
+    <input type="number" id="moc" value="5" min="1" max="10"><br><br>
+
+    <button onclick="zrobKawe()">OK</button>
+
+    <p id="wynik"></p>
+
+    <script>
+        class SystemKawy {
+            mielKawe(moc) {
+                console.log(`Mielenie kawy - moc: ${moc}/10`);
+            }
+            zaparz(rodzaj) {
+                console.log(`Zaparzanie kawy: ${rodzaj}`);
+            }
+        }
+
+        class SystemMleka {
+            dodajMleko(ilosc) {
+                console.log(`Dodawanie ${ilosc}ml mleka`);
+            }
+        }
+
+        class SystemCukru {
+            dodajCukier(ilosc) {
+                console.log(`Dodawanie ${ilosc} łyżeczek cukru`);
+            }
+        }
+
+        class AutomatDoKawyFasada {
+            constructor() {
+                this.kawa = new SystemKawy();
+                this.mleko = new SystemMleka();
+                this.cukier = new SystemCukru();
+            }
+
+            przygotujKawe(rodzaj, mleko, cukier, moc) {
+                console.log("=== START PRZYGOTOWANIA KAWY ===");
+                
+                this.kawa.mielKawe(moc);
+                this.kawa.zaparz(rodzaj);
+                
+                if (mleko > 0) {
+                    this.mleko.dodajMleko(mleko);
+                }
+                
+                if (cukier > 0) {
+                    this.cukier.dodajCukier(cukier);
+                }
+                
+                return `Twoja ${rodzaj} jest gotowa! (Mleko: ${mleko}ml, Cukier: ${cukier}, Moc: ${moc}/10)`;
+            }
+        }
+
+        const automat = new AutomatDoKawyFasada();
+        let mleko = 0;
+        let cukier = 0;
+
+        function dodajMleko() {
+            mleko += 50;
+            document.getElementById('mleko-ilosc').textContent = mleko;
+        }
+
+        function dodajCukier() {
+            cukier += 1;
+            document.getElementById('cukier-ilosc').textContent = cukier;
+        }
+
+        function zrobKawe() {
+            const rodzaj = document.getElementById('rodzaj').value;
+            const moc = parseInt(document.getElementById('moc').value) || 5;
+
+            const wynik = automat.przygotujKawe(rodzaj, mleko, cukier, moc);
+            document.getElementById('wynik').textContent = wynik;
+        }
+    </script>
+</body>
+</html>

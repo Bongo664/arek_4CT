@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Fasada</title>
+    <style>
+        body {
+            margin: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <h2>Wypożyczalnia Filmów</h2>
+    <form id="filmForm">
+        <label for="typFilmu">Typ:</label>
+        <select id="typFilmu">
+            <option value="">-- Wybierz --</option>
+            <option value="science-fiction">Science-Fiction</option>
+            <option value="horror">Horror</option>
+            <option value="komedia">Komedia</option>
+        </select>
+        <label for="listaFilmow">Film:</label>
+        <select id="listaFilmow">
+            <option value="">-- Wybierz film --</option>
+            <option value="Film 1">Film 1</option>
+            <option value="Film 2">Film 2</option>
+            <option value="Film 3">Film 3</option>
+        </select>
+        <button type="button" id="wypozyczBtn">Wypożycz</button>
+    </form>
+    <div id="wynik"></div>
+
+    <script>
+        class SystemWypozyczania {
+            wypozycz(typ, film) {
+                return `Wypożyczono film "${film}" z kategorii "${typ}".`;
+            }
+        }
+        class SystemInformacji {
+            pokazWybor(typ, film) {
+                return `Wybrano typ: "${typ}", film: "${film}".`;
+            }
+        }
+        class FasadaWypozyczalni {
+            constructor() {
+                this.systemWypozyczania = new SystemWypozyczania();
+                this.systemInformacji = new SystemInformacji();
+            }
+
+            wypozyczFilm(typ, film) {
+                return this.systemWypozyczania.wypozycz(typ, film);
+            }
+
+            pokazWybrane(typ, film) {
+                return this.systemInformacji.pokazWybor(typ, film);
+            }
+        }
+        
+        const fasada = new FasadaWypozyczalni();
+        const typFilmuSelect = document.getElementById("typFilmu");
+        const listaFilmowSelect = document.getElementById("listaFilmow");
+        const wynikDiv = document.getElementById("wynik");
+        document.getElementById("wypozyczBtn").addEventListener("click", () => {
+            const typ = typFilmuSelect.value;
+            const film = listaFilmowSelect.value;
+            if (!typ || !film) {
+                wynikDiv.textContent = " Najpierw wybierz typ i film.";
+                return;
+            }
+            const msg = fasada.wypozyczFilm(typ, film);
+            wynikDiv.textContent = msg;
+        });
+    </script>
+</body>
+</html>

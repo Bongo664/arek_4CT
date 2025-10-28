@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class AudioSystem{
+            turnOn(){
+                console.log("audio włączone")
+            }
+            setValue(level){
+                console.log(`Głośność ustawiona na ${level}`)
+            }
+        }
+        class VideoSystem{
+            turnOn() {
+                console.log("wideo włączone");
+            }
+            setResolution(resolution){
+                console.log(`rozdzielczość ustawiona na ${resolution}`)
+            }
+        }
+        class StreamingServices{
+            connect(){
+                console.log("Połączono z serwisem streamingowym")
+            }
+            play(movie){
+                console.log(`Odtwarzanie filmu: ${movie}`)
+            }
+        }
+        class HomeTheatherFasada {
+            constructor() {
+                this.audio = new AudioSystem(),
+                this.video = new VideoSystem(),
+                this.streaming = new StreamingServices()
+            }
+            watchMovie(movie){
+                console.log("Przygotowanie do oglądania filmu");
+                this.audio.turnOn();
+                this.audio.setValue(90);
+                this.video.turnOn();
+                this.video.setResolution("1080p");
+                this.streaming.connect();
+                this.streaming.play(movie);
+                console.log("miłego seansu");
+            }
+        }
+        const mojaFasada = new HomeTheatherFasada();
+        mojaFasada.watchMovie("chuj")
+    </script>
+</body>
+</html>
