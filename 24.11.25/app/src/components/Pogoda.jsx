@@ -3,37 +3,37 @@ import axios from 'axios';
 import './Pogoda.css';
 
 function Pogoda() {
-    const [weatherData, setWeatherData] = useState([]);
+    const [danePogodowe, ustawDanePogodowe] = useState([]);
 
-    const cities = [
-        { name: 'Pszczyna', lat: 49.98, lon: 18.95 },
-        { name: 'Katowice', lat: 50.26, lon: 19.02 },
-        { name: 'Bielsko-Biała', lat: 49.82, lon: 19.05 },
+    const miasta = [
+        { nazwa: 'Pszczyna', lat: 49.98, lon: 18.95 },
+        { nazwa: 'Katowice', lat: 50.26, lon: 19.02 },
+        { nazwa: 'Bielsko-Biała', lat: 49.82, lon: 19.05 },
     ];
 
     useEffect(() => {
         axios.get("https://api.open-meteo.com/v1/forecast?latitude=49.98,50.26,49.82&longitude=18.95,19.02,19.05&current_weather=true")
-            .then(response => {
-                const data = response.data.map((cityData, index) => ({
-                    city: cities[index].name,
-                    temperature: cityData.current_weather.temperature,
-                    windspeed: cityData.current_weather.windspeed,
-                    weathercode: cityData.current_weather.weathercode
+            .then(odpowiedz => {
+                const dane = odpowiedz.data.map((daneMiasta, index) => ({
+                    miasto: miasta[index].nazwa,
+                    temperatura: daneMiasta.current_weather.temperature,
+                    predkoscWiatru: daneMiasta.current_weather.windspeed,
+                    kodPogody: daneMiasta.current_weather.weathercode
                 }));
-                setWeatherData(data);
+                ustawDanePogodowe(dane);
             })
-            .catch(err => console.error("Błąd:", err));
+            .catch(blad => console.error("Błąd:", blad));
     }, []);
 
-    const getWeatherIcon = (code) => {
-        if (code === 0) return '☀️';
-        if (code >= 1 && code <= 3) return '⛅';
-        if (code >= 45 && code <= 48) return '🌫️';
-        if (code >= 51 && code <= 67) return '🌧️';
-        if (code >= 80 && code <= 82) return '🌧️';
-        if (code >= 71 && code <= 77) return '❄️';
-        if (code >= 85 && code <= 86) return '❄️';
-        if (code >= 95 && code <= 99) return '⛈️';
+    const pobierzIkonePogody = (kod) => {
+        if (kod === 0) return '☀️';
+        if (kod >= 1 && kod <= 3) return '⛅';
+        if (kod >= 45 && kod <= 48) return '🌫️';
+        if (kod >= 51 && kod <= 67) return '🌧️';
+        if (kod >= 80 && kod <= 82) return '🌧️';
+        if (kod >= 71 && kod <= 77) return '❄️';
+        if (kod >= 85 && kod <= 86) return '❄️';
+        if (kod >= 95 && kod <= 99) return '⛈️';
         return '❓';
     };
 
@@ -41,12 +41,12 @@ function Pogoda() {
         <div className="pogoda-container">
             <h2>Aktualna Pogoda</h2>
             <div className="weather-cards">
-                {weatherData.map((item, index) => (
-                    <div key={index} className="weather-card">
-                        <h3 className="city-name">{item.city}</h3>
-                        <div className="weather-icon">{getWeatherIcon(item.weathercode)}</div>
-                        <p className="weather-info">Temp: {item.temperature}°C</p>
-                        <p className="weather-info">Wiatr: {item.windspeed} km/h</p>
+                {danePogodowe.map((element, indeks) => (
+                    <div key={indeks} className="weather-card">
+                        <h3 className="city-name">{element.miasto}</h3>
+                        <div className="weather-icon">{pobierzIkonePogody(element.kodPogody)}</div>
+                        <p className="weather-info">Temp: {element.temperatura}°C</p>
+                        <p className="weather-info">Wiatr: {element.predkoscWiatru} km/h</p>
                     </div>
                 ))}
             </div>
