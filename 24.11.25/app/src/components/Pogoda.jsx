@@ -12,14 +12,21 @@ function Pogoda() {
     ];
 
     useEffect(() => {
-        axios.get("https://api.open-meteo.com/v1/forecast?latitude=49.98,50.26,49.82&longitude=18.95,19.02,19.05&current_weather=true")
+        axios.get("https://api.open-meteo.com/v1/forecast?latitude=49.98,50.26,49.82&longitude=18.95,19.02,19.05&current_weather=true&hourly=precipitation_probability")
             .then(odpowiedz => {
-                const dane = odpowiedz.data.map((daneMiasta, index) => ({
-                    miasto: miasta[index].nazwa,
-                    temperatura: daneMiasta.current_weather.temperature,
-                    predkoscWiatru: daneMiasta.current_weather.windspeed,
-                    kodPogody: daneMiasta.current_weather.weathercode
-                }));
+                const dane = odpowiedz.data.map((daneMiasta, index) => {
+                    const czasTeraz = daneMiasta.current_weather.time;
+                    const indeksGodziny = daneMiasta.hourly.time.indexOf(czasTeraz);
+                    const szansaOpadow = daneMiasta.hourly.precipitation_probability[indeksGodziny];
+
+                    return {
+                        miasto: miasta[index].nazwa,
+                        temperatura: daneMiasta.current_weather.temperature,
+                        predkoscWiatru: daneMiasta.current_weather.windspeed,
+                        kodPogody: daneMiasta.current_weather.weathercode,
+                        szansaOpadow: szansaOpadow
+                    };
+                });
                 ustawDanePogodowe(dane);
             })
             .catch(blad => console.error("Błąd:", blad));
@@ -47,6 +54,7 @@ function Pogoda() {
                         <div className="weather-icon">{pobierzIkonePogody(element.kodPogody)}</div>
                         <p className="weather-info">Temp: {element.temperatura}°C</p>
                         <p className="weather-info">Wiatr: {element.predkoscWiatru} km/h</p>
+                        <p className="weather-info">Opady: {element.szansaOpadow}%</p>
                     </div>
                 ))}
             </div>
