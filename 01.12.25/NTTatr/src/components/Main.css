@@ -1,0 +1,16 @@
+.main {
+    min-height: calc(100vh - 200px);
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+}
+
+.main.dark {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.main-container {
+    width: 100vw;
+    margin: 0 auto;
+    padding: 0 20px;
+}
