@@ -1,0 +1,28 @@
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.theme-switcher {
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.theme-switcher label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.theme-switcher select {
+  padding: 5px 10px;
+  font-size: 14px;
+}
